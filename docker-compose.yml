@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 
 services:
   mysql:
@@ -13,3 +13,7 @@ services:
       - ./init:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
+  app:
+    build: ./infra/php
+    volumes:
+      - ./src:/data
