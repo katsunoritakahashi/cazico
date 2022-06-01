@@ -1,29 +1,29 @@
 version: "3.9"
 
 services:
-  mysql:
-    image: mysql:latest
-    container_name: cazico-db
+  db:
+    image: mysql/mysql-server:8.0
+    command: --secure-file-priv=""
     environment:
       MYSQL_DATABASE: cazico
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
-      TZ: "Asia/Tokyo"
-    volumes:
-      - ./my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./init:/docker-entrypoint-initdb.d
+      TZ: Asia/Tokyo
     ports:
       - "3306:3306"
+    volumes:
+      - db-store:/var/lib/mysql
+
   management-app:
     build: infra/management-console/php
     depends_on:
-      - mysql
+      - db
       - redis
     volumes:
       - ./src/management-console:/var/www/html/management-console
+
   management-web:
-    build: infra/management-console/nginx
     depends_on:
       - management-app
     image: nginx:1.20-alpine
@@ -33,9 +33,13 @@ services:
       - ./src/management-console:/var/www/html/management-console
       - ./infra/management-console/nginx/default.conf:/etc/nginx/conf.d/default.conf
     working_dir: /data
+
   redis:
     image: "redis:latest"
     ports:
       - "6379:6379"
     volumes:
       - "./data/redis:/data"
+
+volumes:
+  db-store:
