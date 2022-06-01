@@ -19,18 +19,6 @@ jobs:
       - name: Create & Start Docker Containers
         run: docker-compose up -d
 
-      - name: PHP Version
-        run: docker-compose exec -T app php --version
-
-      - name: Composer Version
-        run: docker-compose exec -T app composer --version
-
-      - name: Install Dependencies
-        run: docker-compose exec -T app composer install
-
-      - name: Laravel Version
-        run: docker-compose exec -T app php artisan --version
-
       - name: Laravel Setting
         run: |
           docker-compose exec -T app cp .env.example .env
