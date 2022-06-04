@@ -20,7 +20,7 @@ class FamilySeeder extends Seeder
             'name' => '高橋',
             'code' => 'noeri0414',
         ]);
-        $katsunori = User::create([
+        User::create([
             'family_id' => $takahashiFamily->id,
             'name' => '克典',
             'gender' => 'man',
@@ -30,7 +30,7 @@ class FamilySeeder extends Seeder
             'password' => 'password',
             'remember_token' => 'takahashi_katsunori'
         ]);
-        $erika = User::create([
+        User::create([
             'family_id' => $takahashiFamily->id,
             'name' => '絵里香',
             'gender' => 'woman',

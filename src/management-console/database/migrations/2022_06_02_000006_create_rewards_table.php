@@ -21,6 +21,7 @@ class CreateRewardsTable extends Migration
             $table->foreign('reward_category_id', 'fk_reward_category1')->references('id')->on('rewards')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->string('name')->comment('ねぎらい名');
             $table->integer('point')->comment('必要ポイント');
+            $table->string('note', 300)->nullable()->comment('詳細メモ');
             $table->timestamps();
         });
     }
