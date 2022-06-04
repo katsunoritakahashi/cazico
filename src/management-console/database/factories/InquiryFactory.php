@@ -18,9 +18,9 @@ class InquiryFactory extends Factory
     public function definition()
     {
         return [
-            'family_id' => User::factory(),
-            'title' => $this->faker->sentence,
-            'body' => $this->faker->array
+            'user_id' => User::factory(),
+            'title' => $this->faker->realText(10),
+            'body' => $this->faker->realText
         ];
     }
 }

@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function family()
+    {
+        return $this->belongsTo('App\Models\Family', 'family_id', 'id');
+    }
+
+    public function rewards()
+    {
+        return $this->hasMany('App\Models\Reward', 'user_id');
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Reward;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FamilySeeder::class);
         $this->call(HouseWorkSeeder::class);
         $this->call(RewardSeeder::class);
+        $this->call(PointHistorySeeder::class);
+        $this->call(InquirySeeder::class);
     }
 }
