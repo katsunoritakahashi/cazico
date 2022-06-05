@@ -18,10 +18,12 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $gender = $this->faker->randomElement(['man','woman','other']);
+        $gender == 'man' ? $name = $this->faker->firstNameMale() : $name = $this->faker->firstNameFemale();
         return [
             'family_id' => Family::factory(),
-            'name' => $this->faker->firstName(),
-            'gender' => $this->faker->randomElement(['man','woman','other']),
+            'name' => $name,
+            'gender' => $gender,
             'birthday' => $this->faker->date(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),

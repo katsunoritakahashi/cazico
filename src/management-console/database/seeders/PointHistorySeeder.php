@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\PointHistory;
 use App\Models\Reward;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Provider\DateTime;
@@ -35,7 +36,7 @@ class PointHistorySeeder extends Seeder
                 'type' => 'reward',
                 'name' => 'お菓子・スイーツ',
                 'point' => 300 * -1,
-                'created_at' => DateTime::dateTimeThisMonth(),
+                'created_at' => Carbon::yesterday(),
             ]);
         }
     }
