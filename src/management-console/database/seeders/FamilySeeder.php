@@ -27,7 +27,7 @@ class FamilySeeder extends Seeder
             'birthday' => '1994-09-16',
             'email' => 'katsutennis.916@gmail.com',
             'email_verified_at' => now(),
-            'password' => 'password',
+            'password' => bcrypt('password'),
             'remember_token' => 'takahashi_katsunori'
         ]);
         User::create([
@@ -37,7 +37,7 @@ class FamilySeeder extends Seeder
             'birthday' => '1992-08-25',
             'email' => 'erika@gmail.com',
             'email_verified_at' => now(),
-            'password' => 'password',
+            'password' => bcrypt('password'),
             'remember_token' => 'takahashi_katsunori'
         ]);
         $families = Family::factory(10)->create();
