@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FamilyIndexRequest;
+use App\Http\Resources\FamilyIndexResource;
 use App\Models\Family;
 use Illuminate\Http\Request;
 
@@ -12,9 +14,13 @@ class FamilyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FamilyIndexRequest $request)
     {
-        //
+        $families = Family::where($request->getSearchQuery())
+            ->orderBy('id', 'desc')
+            ->paginate(($request->getPerPage()));
+
+        return FamilyIndexResource::collection($families);
     }
 
     /**
