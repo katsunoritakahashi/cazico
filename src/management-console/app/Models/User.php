@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Reward', 'user_id');
     }
+
+    public function pointHistories()
+    {
+        return $this->hasMany('App\Models\PointHistory', 'user_id');
+    }
 }
