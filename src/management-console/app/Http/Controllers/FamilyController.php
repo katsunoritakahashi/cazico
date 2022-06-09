@@ -16,7 +16,8 @@ class FamilyController extends Controller
      */
     public function index(FamilyIndexRequest $request)
     {
-        $families = Family::where($request->getSearchQuery())
+        $query = Family::where($request->getSearchQuery());
+        $families = $request->searchCondition($query)
             ->orderBy('id', 'desc')
             ->paginate(($request->getPerPage()));
 
