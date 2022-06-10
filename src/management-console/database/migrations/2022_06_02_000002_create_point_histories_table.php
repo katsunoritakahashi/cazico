@@ -16,7 +16,7 @@ class CreatePointHistoriesTable extends Migration
         Schema::create('point_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable()->index('fk_point_history_user1_idx')->comment('ユーザーID');
-            $table->foreign('user_id', 'fk_point_history_user1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('user_id', 'fk_point_history_user1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->enum('type', array('house_work','reward'))->comment('タイプ');
             $table->string('name')->comment('名称');
             $table->integer('point')->comment('ポイント');

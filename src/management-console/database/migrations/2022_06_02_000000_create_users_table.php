@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('family_id')->nullable()->index('fk_user_family1_idx')->comment('家族ID');
-            $table->foreign('family_id', 'fk_user_family1')->references('id')->on('families')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('family_id', 'fk_user_family1')->references('id')->on('families')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->string('name')->comment('名前');
             $table->enum('gender', array('man','woman','other'))->comment('性別');
             $table->date('birthday')->comment('生年月日');

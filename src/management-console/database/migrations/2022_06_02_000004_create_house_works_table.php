@@ -16,9 +16,9 @@ class CreateHouseWorksTable extends Migration
         Schema::create('house_works', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('house_work_category_id')->nullable()->index('fk_house_work_house_work_category_idx')->comment('家事カテゴリーID');
-            $table->foreign('house_work_category_id', 'fk_house_work_house_work_category1')->references('id')->on('house_work_categories')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('house_work_category_id', 'fk_house_work_house_work_category1')->references('id')->on('house_work_categories')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->unsignedInteger('family_id')->nullable()->index('fk_house_work_family_idx')->comment('ファミリーID');
-            $table->foreign('family_id', 'fk_house_work_family1')->references('id')->on('families')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('family_id', 'fk_house_work_family1')->references('id')->on('families')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->string('name')->comment('家事名');
             $table->integer('point')->comment('獲得ポイント');
             $table->timestamps();

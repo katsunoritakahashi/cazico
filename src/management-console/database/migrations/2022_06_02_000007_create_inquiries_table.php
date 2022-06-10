@@ -16,7 +16,7 @@ class CreateInquiriesTable extends Migration
         Schema::create('inquiries', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable()->index('fk_inquiry_user_idx')->comment('ユーザーID');
-            $table->foreign('user_id', 'fk_inquiry_user1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('user_id', 'fk_inquiry_user1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->string('title', 254)->comment('タイトル');
             $table->string('body', 3000)->comment('内容');
             $table->timestamps();

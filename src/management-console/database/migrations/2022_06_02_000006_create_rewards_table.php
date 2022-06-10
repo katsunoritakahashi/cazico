@@ -16,9 +16,9 @@ class CreateRewardsTable extends Migration
         Schema::create('rewards', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable()->index('fk_reward_user_idx')->comment('ユーザーID');
-            $table->foreign('user_id', 'fk_reward_user1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('user_id', 'fk_reward_user1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->unsignedInteger('reward_category_id')->nullable()->index('fk_reward_reward_category_idx')->comment('ねぎらいカテゴリーID');
-            $table->foreign('reward_category_id', 'fk_reward_category1')->references('id')->on('rewards')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('reward_category_id', 'fk_reward_category1')->references('id')->on('rewards')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->string('name')->comment('ねぎらい名');
             $table->integer('point')->comment('必要ポイント');
             $table->string('note', 300)->nullable()->comment('詳細メモ');
