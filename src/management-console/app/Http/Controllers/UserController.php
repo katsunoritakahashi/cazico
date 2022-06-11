@@ -48,9 +48,8 @@ class UserController extends Controller
      * @param  \App\Models\HouseWork  $houseWork
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($familyId, $id)
     {
-        $user = User::find($id);
-        $user->destroy($id);
+        User::destroy($id);
     }
 }

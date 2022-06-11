@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Reward extends Model
 {
     use HasFactory;
+
+    public function rewardCategory()
+    {
+        return $this->belongsTo('App\Models\RewardCategory', 'reward_category_id', 'id');
+    }
 }

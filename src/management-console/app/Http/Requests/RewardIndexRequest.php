@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 
-class HouseWorkIndexRequest extends IndexRequest
+class RewardIndexRequest extends IndexRequest
 {
     protected $conditions = [
         'name' => 'like',

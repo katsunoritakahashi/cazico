@@ -31,7 +31,7 @@ class HouseWorkController extends Controller
      * @param  \App\Models\HouseWork  $houseWork
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($familyId, $id)
     {
         $houseWork = HouseWork::find($id);
         $houseWork->destroy($id);
