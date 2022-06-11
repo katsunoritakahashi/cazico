@@ -2,70 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\HouseWorkIndexRequest;
-use App\Http\Resources\FamilyIndexResource;
-use App\Http\Resources\HouseWorkIndexResource;
-use App\Models\HouseWork;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
-class HouseWorkController extends Controller
+class UserController extends Controller
 {
-    /**
-     * @param HouseWorkIndexRequest $request
-     * @param $familyId
-     * @return \Illuminate\Http\Response
-     */
-    public function index(HouseWorkIndexRequest $request, $familyId)
-    {
-        $houseWorks = HouseWork::where('family_id', $familyId)
-            ->where($request->getSearchQuery())
-            ->orderBy('updated_at', 'desc')
-            ->paginate(($request->getPerPage()));
-
-        return HouseWorkIndexResource::collection($houseWorks);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\HouseWork  $houseWork
      * @return \Illuminate\Http\Response
      */
-    public function show(HouseWork $houseWork)
+    public function show($familyId, $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\HouseWork  $houseWork
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(HouseWork $houseWork)
-    {
-        //
+        $user = User::find($id);
+        return new UserResource($user);
     }
 
     /**
@@ -75,9 +28,18 @@ class HouseWorkController extends Controller
      * @param  \App\Models\HouseWork  $houseWork
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HouseWork $houseWork)
+    public function update(UserRequest $request, $familyId, $id)
     {
-        //
+        $inquiry = User::find($id);
+        try {
+            DB::transaction(function () use ($request, $inquiry) {
+                $inquiry->update($request->validated());
+                $inquiry->refresh();
+            });
+            return (new UserResource($inquiry))->response()->setStatusCode(202);
+        } catch (\Exception $e) {
+            return (new UserResource($inquiry))->response()->setStatusCode(500);
+        }
     }
 
     /**
@@ -86,8 +48,9 @@ class HouseWorkController extends Controller
      * @param  \App\Models\HouseWork  $houseWork
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HouseWork $houseWork)
+    public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->destroy($id);
     }
 }
