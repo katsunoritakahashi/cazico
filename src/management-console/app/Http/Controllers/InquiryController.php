@@ -2,84 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InquiryIndexRequest;
+use App\Http\Requests\InquiryUpdateRequest;
+use App\Http\Resources\InquiryIndexResource;
+use App\Http\Resources\InquiryResource;
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
 
 class InquiryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(InquiryIndexRequest $request)
     {
-        //
+        $query = Inquiry::where($request->getSearchQuery());
+        $inquiries = $request->searchCondition($query)
+            ->orderBy('created_at', 'desc')
+            ->paginate(($request->getPerPage()));
+
+        return InquiryIndexResource::collection($inquiries);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $inquiry = Inquiry::find($id);
+        return new InquiryResource($inquiry);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(InquiryUpdateRequest $request, $id)
     {
-        //
+        Inquiry::find($id)->update($request->validated());
+        $inquiry = Inquiry::find($id);
+        return (new InquiryResource($inquiry))->response()->setStatusCode(202);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Inquiry  $inquiry
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Inquiry $inquiry)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Inquiry  $inquiry
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Inquiry $inquiry)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Inquiry  $inquiry
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Inquiry $inquiry)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Inquiry  $inquiry
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Inquiry $inquiry)
-    {
-        //
+        Inquiry::destroy($id);
     }
 }

@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('families/{id}/users', 'UserController');
     Route::resource('users/{id}/rewards', 'RewardController');
     Route::resource('pointHistories', 'PointHistoryController');
+    Route::resource('inquiries', 'InquiryController');
 });

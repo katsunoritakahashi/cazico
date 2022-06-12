@@ -19,6 +19,8 @@ class CreateInquiriesTable extends Migration
             $table->foreign('user_id', 'fk_inquiry_user1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->string('title', 254)->comment('タイトル');
             $table->string('body', 3000)->comment('内容');
+            $table->enum('status', array('waiting','in_progress','completed'))->default('waiting')->comment('ステータス');
+            $table->string('note', 3000)->comment('備考');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateInquiriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rewards');
+        Schema::dropIfExists('inquiries');
     }
 };
