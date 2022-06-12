@@ -2,8 +2,9 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 
-class OperatorResource extends BaseResource
+class OperatorIndexResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

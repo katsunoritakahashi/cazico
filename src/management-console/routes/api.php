@@ -23,4 +23,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('pointHistories', 'PointHistoryController');
     Route::resource('inquiries', 'InquiryController');
     Route::post('inquiries/{id}/reply', 'InquiryController@reply');
+    Route::resource('operators', 'OperatorController');
+    Route::put('operators/{id}/resetPassword', 'OperatorController@resetPassword');
 });
