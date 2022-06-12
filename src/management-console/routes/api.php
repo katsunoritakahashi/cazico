@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'AuthController@login');
 Route::middleware('auth:sanctum')->group(function () {
-    Route::resource('families', 'FamilyController');
-    Route::resource('families/{id}/houseWorks', 'HouseWorkController');
-    Route::resource('families/{id}/users', 'UserController');
-    Route::resource('users/{id}/rewards', 'RewardController');
-    Route::resource('pointHistories', 'PointHistoryController');
-    Route::resource('inquiries', 'InquiryController');
+    Route::resource('families', 'FamilyController', ['only' => ['index', 'show', 'update', 'destroy']]);
+    Route::resource('families/{id}/houseWorks', 'HouseWorkController', ['only' => ['index', 'destroy']]);
+    Route::resource('families/{id}/users', 'UserController', ['only' => ['show', 'update', 'destroy']]);
+    Route::resource('users/{id}/rewards', 'RewardController', ['only' => ['index', 'destroy']]);
+    Route::resource('pointHistories', 'PointHistoryController', ['only' => ['index', 'destroy']]);
+    Route::resource('inquiries', 'InquiryController', ['only' => ['index', 'show', 'update', 'destroy']]);
     Route::post('inquiries/{id}/reply', 'InquiryController@reply');
-    Route::resource('operators', 'OperatorController');
+    Route::resource('operators', 'OperatorController', ['only' => ['index','store', 'show', 'update', 'destroy']]);
     Route::put('operators/{id}/resetPassword', 'OperatorController@resetPassword');
 });
