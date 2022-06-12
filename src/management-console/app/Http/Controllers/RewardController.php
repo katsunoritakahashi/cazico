@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class RewardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(RewardIndexRequest $request, $userId)
     {
         $rewards = Reward::where('user_id', $userId)
@@ -24,12 +19,6 @@ class RewardController extends Controller
         return RewardIndexResource::collection($rewards);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Reward  $reward
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($userId, $id)
     {
         Reward::destroy($id);

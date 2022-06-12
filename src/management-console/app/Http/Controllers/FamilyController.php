@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class FamilyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(FamilyIndexRequest $request)
     {
         $query = Family::where($request->getSearchQuery());
@@ -27,24 +22,12 @@ class FamilyController extends Controller
         return FamilyIndexResource::collection($families);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $inquiry = Family::find($id);
         return new FamilyResource($inquiry);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Family  $family
-     * @return \Illuminate\Http\Response
-     */
     public function update(FamilyRequest $request, $id)
     {
         $inquiry = Family::find($id);
@@ -59,12 +42,6 @@ class FamilyController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Family  $family
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $family = Family::find($id);

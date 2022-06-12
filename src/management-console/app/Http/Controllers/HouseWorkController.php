@@ -10,11 +10,6 @@ use Illuminate\Http\Request;
 
 class HouseWorkController extends Controller
 {
-    /**
-     * @param HouseWorkIndexRequest $request
-     * @param $familyId
-     * @return \Illuminate\Http\Response
-     */
     public function index(HouseWorkIndexRequest $request, $familyId)
     {
         $houseWorks = HouseWork::where('family_id', $familyId)
@@ -25,12 +20,6 @@ class HouseWorkController extends Controller
         return HouseWorkIndexResource::collection($houseWorks);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\HouseWork  $houseWork
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($familyId, $id)
     {
         $houseWork = HouseWork::find($id);
