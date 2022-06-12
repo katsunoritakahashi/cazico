@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PointHistoryIndexRequest;
+use App\Http\Resources\PointHistoryIndexResource;
 use App\Models\PointHistory;
 use Illuminate\Http\Request;
 
@@ -12,64 +14,14 @@ class PointHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PointHistoryIndexRequest $request)
     {
-        //
-    }
+        $query = PointHistory::where($request->getSearchQuery());
+        $families = $request->searchCondition($query)
+            ->orderBy('created_at', 'desc')
+            ->paginate(($request->getPerPage()));
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PointHistory  $pointHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PointHistory $pointHistory)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PointHistory  $pointHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PointHistory $pointHistory)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PointHistory  $pointHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PointHistory $pointHistory)
-    {
-        //
+        return PointHistoryIndexResource::collection($families);
     }
 
     /**
@@ -78,8 +30,8 @@ class PointHistoryController extends Controller
      * @param  \App\Models\PointHistory  $pointHistory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PointHistory $pointHistory)
+    public function destroy($id)
     {
-        //
+        PointHistory::destroy($id);
     }
 }
