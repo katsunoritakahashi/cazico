@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('users/{id}/rewards', 'RewardController');
     Route::resource('pointHistories', 'PointHistoryController');
     Route::resource('inquiries', 'InquiryController');
+    Route::post('inquiries/{id}/reply', 'InquiryController@reply');
 });

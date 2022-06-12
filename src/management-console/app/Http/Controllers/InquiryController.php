@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InquiryIndexRequest;
+use App\Http\Requests\InquiryReplyRequest;
 use App\Http\Requests\InquiryUpdateRequest;
 use App\Http\Resources\InquiryIndexResource;
+use App\Http\Resources\InquiryReplyResource;
 use App\Http\Resources\InquiryResource;
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InquiryController extends Controller
 {
@@ -37,5 +40,20 @@ class InquiryController extends Controller
     public function destroy($id)
     {
         Inquiry::destroy($id);
+    }
+
+    public function reply(InquiryReplyRequest $request, $id)
+    {
+        $reply = DB::transaction(function () use ($request, $id) {
+            $inquiry = Inquiry::find($id);
+            // 返信作成
+            $reply = $inquiry->InquiryReplies()->create([
+                'body' => $request->input('body')
+            ]);
+            // メール送信
+            $reply->sendMail();
+            return $reply;
+        });
+        return (new InquiryReplyResource($reply))->response()->setStatusCode(201);
     }
 }
