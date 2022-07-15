@@ -1,0 +1,48 @@
+# /me
+get:
+  summary: 自アカウント情報取得
+  tags: []
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/operator.yaml#/components/schemas/Operator
+    '401':
+      description: Unauthorized
+      headers: {}
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+  operationId: get-me
+  parameters: []
+  security:
+    - bearerAuth: []
+post:
+  summary: ''
+  operationId: post-me
+  responses:
+    '200':
+      description: OK
+put:
+  summary: オペレータ マイメニュー
+  operationId: put-me
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/operator.yaml#/components/schemas/MeUpdateResponse
+  security:
+    - bearerAuth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../models/operator.yaml#/components/schemas/MeUpdateRequest

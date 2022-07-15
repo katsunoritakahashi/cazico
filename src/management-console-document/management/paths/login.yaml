@@ -1,0 +1,33 @@
+# /login
+post:
+  summary: Login
+  operationId: post-login
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/operator.yaml#/components/schemas/LoginPostResponse
+          examples:
+            admin:
+              value:
+                data:
+                  accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODA4MFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5NjUyODU5MSwiZXhwIjoxNTk2NTMyMTkxLCJuYmYiOjE1OTY1Mjg1OTEsImp0aSI6ImtPTFFrV2VobTM2b2ZLOTUiLCJzdWIiOjEsInBydiI6IjJjMTA2MTYyYTllNmVkOGI2NDk3ZmViNzc4ZTNlMDA3NzM0Zjk4YjQifQ.3l2LS9H1s2NtmaPs2gECtbVqY-tijCjq6biDHSyHxl0
+                  tokenType: bearer
+                  operator:
+                    id: 1
+                    name: admin
+                    displayName: システム管理者
+                    email: admin@example.com
+                    locked: false
+                    canOperatorRead: true
+                    canOperatorExport: true
+                    canOperatorUpdate: true
+                    canOperatorDelete: true
+                  expiresIn: 3600
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../models/operator.yaml#/components/schemas/LoginPostRequest

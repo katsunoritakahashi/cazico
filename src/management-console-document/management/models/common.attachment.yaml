@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: common.attachment.yaml
+  version: '1.0'
+  description: 共通書類関連定義
+components:
+  schemas:
+    CommonAttachment:
+      title: CommonAttachment
+      type: object
+      description: 共通書類
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+          description: 書類名
+        name:
+          type: string
+          description: ファイル名
+        url:
+          type: string
+          description: ファイル保存先アドレス
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - title
+        - name
+        - url
+        - createdAt
+        - updatedAt
+    CommonAttachmentResponse:
+      title: CommonAttachmentResponse
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CommonAttachment'
+      required:
+        - data
+    CommonAttachmentIndexResponse:
+      title: CommonAttachmentIndexResponse
+      type: object
+      properties:
+        meta:
+          $ref: '../shared.yaml#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommonAttachment'
+      required:
+        - meta
+        - data
+    CommonAttachmentCreateRequest:
+      title: CommonAttachmentCreateRequest
+      type: object
+      properties:
+        title:
+          type: string
+        file:
+          type: object
+      required:
+        - title
+        - file
+    CommonAttachmentUpdateRequest:
+      title: CommonAttachmentUpdateRequest
+      type: object
+      properties:
+        title:
+          type: string
+      required:
+        - title

@@ -20,6 +20,7 @@ services:
     depends_on:
       - db
       - redis
+      - mail
     volumes:
       - ./src/management-console:/var/www/html/management-console
 

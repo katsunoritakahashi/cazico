@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  owner-api-mock-server:
+    image: stoplight/prism:3
+    ports:
+      - "4010:4010"
+    command: mock -h 0.0.0.0 /shoken-owner-app.v1.yaml
+    volumes:
+      - ./shoken-owner-app.v1.yaml:/shoken-owner-app.v1.yaml
+    networks:
+      - openapi
+
+  resident-api-mock-server:
+    image: stoplight/prism:3
+    ports:
+      - "4011:4010"
+    command: mock -h 0.0.0.0 /shoken-resident-app.v1.yaml
+    volumes:
+      - ./shoken-resident-app.v1.yaml:/shoken-resident-app.v1.yaml
+    networks:
+      - openapi
+networks:
+  openapi:

@@ -1,0 +1,9 @@
+# /logout
+post:
+  summary: Logout
+  operationId: post-logout
+  responses:
+    '200':
+      description: OK
+  security:
+    - bearerAuth: []

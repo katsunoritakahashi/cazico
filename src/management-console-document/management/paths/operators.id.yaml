@@ -1,0 +1,46 @@
+# /operators/{id}
+parameters:
+  - schema:
+      type: integer
+    name: id
+    in: path
+    required: true
+    description: オペレータID
+get:
+  summary: オペレータ取得
+  tags: []
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/operator.yaml#/components/schemas/OperatorResponse
+  operationId: get-operators-id
+  security:
+    - bearerAuth: []
+put:
+  summary: オペレータ更新
+  operationId: put-operators-id
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/operator.yaml#/components/schemas/OperatorResponse
+  security:
+    - bearerAuth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../models/operator.yaml#/components/schemas/OperatorUpdateRequest
+delete:
+  summary: オペレータ削除
+  operationId: delete-operators-id
+  responses:
+    '200':
+      description: OK
+  security:
+    - bearerAuth: []

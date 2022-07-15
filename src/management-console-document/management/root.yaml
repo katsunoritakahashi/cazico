@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: magnolia-api.v1.yaml
+  version: '1.0'
+  description: Magnolia api
+servers:
+  - url: 'http://localhost:4012'
+paths:
+  /login:
+    $ref: ./paths/login.yaml
+  /logout:
+    $ref: ./paths/logout.yaml
+  /me:
+    $ref: ./paths/me.yaml
+  /operators:
+    $ref: ./paths/operators.yaml
+  '/operators/{id}':
+    $ref: ./paths/operators.id.yaml
+  '/operators/{id}/resetPassword':
+    $ref: ./paths/operators.id.resetPassword.yaml
+  /operators/all:
+    $ref: ./paths/operators.all.yaml
+  /masters:
+    $ref: ./paths/masters.yaml
+  '/masters/cities/{prefectureId}':
+    $ref: ./paths/masters.cities.prefectureId.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: ''
+      bearerFormat: JWT

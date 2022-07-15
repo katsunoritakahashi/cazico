@@ -1,0 +1,14 @@
+# /masters
+get:
+  summary: マスタ系テーブルデータ全取得
+  tags: []
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/masters.yaml#/components/schemas/MastersResponse
+  operationId: get-masters
+  security:
+    - bearerAuth: []

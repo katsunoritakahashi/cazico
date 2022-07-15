@@ -1,0 +1,137 @@
+openapi: 3.0.0
+info:
+  title: magnolia-management-api.shared.yaml
+  version: '1.0'
+  description: 管理画面共通定義
+components:
+  schemas:
+    Meta:
+      title: Meta
+      type: object
+      description: 一覧取得系apiのページ情報
+      properties:
+        to:
+          type: integer
+        from:
+          type: integer
+        lastPage:
+          type: integer
+        currentPage:
+          type: integer
+        perPage:
+          type: integer
+        total:
+          type: integer
+      required:
+        - to
+        - from
+        - lastPage
+        - currentPage
+        - perPage
+        - total
+    ID:
+      title: Meta
+      type: object
+      description: プライマリキー
+      properties:
+        id:
+          type: integer
+    SystemCode:
+      title: SystemCode
+      type: object
+      description: システムコード
+      properties:
+        systemCode:
+          type: string
+    FilesRequest:
+      title: FilesRequest
+      type: object
+      description: ファイル送信リクエスト
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+    Attachment:
+      title: Attachment
+      type: object
+      description: 添付ファイル
+      properties:
+        id:
+          type: integer
+          description: ファイルID
+        name:
+          type: string
+          description: ファイル名
+        path:
+          type: string
+          description: s3ファイルパス
+        url:
+          type: string
+          description: s3ファイルURL
+    AttachmentResponse:
+      title: AttachmentResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+      required:
+        - data
+    AttachmentUrl:
+      title: AttachmentUrl
+      type: object
+      description: 添付ファイル url 取得用)
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+      required:
+        - id
+        - url
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        errorMessage:
+          type: string
+        errorDetails:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        errorCode:
+          type: integer
+      required:
+        - statusCode
+        - errorMessage
+        - errorDetails
+        - errorCode
+  parameters:
+    PageNumber:
+      name: page
+      in: query
+      description: ページ番号
+      required: true
+      schema:
+        type: integer
+    PageOffset:
+      name: perPage
+      in: query
+      description: 取得件数
+      required: false
+      schema:
+        type: integer
+    AttachmentId:
+      schema:
+        type: integer
+      name: attachmentId
+      in: path
+      required: true
+      description: 添付ファイルID

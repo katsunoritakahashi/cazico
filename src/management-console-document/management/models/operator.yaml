@@ -1,0 +1,212 @@
+openapi: 3.0.0
+info:
+  title: operator.yaml
+  version: '1.0'
+  description: オペレータ関連定義
+components:
+  schemas:
+    LoginPostRequest:
+      title: LoginPostRequest
+      type: object
+      description: ''
+      properties:
+        email:
+          type: string
+          description: ''
+        password:
+          type: string
+      required:
+        - email
+        - password
+    LoginPostResponse:
+      title: LoginPostResponse
+      type: object
+      description: ''
+      properties:
+        data:
+          type: object
+          required:
+            - accessToken
+            - expiresIn
+            - operator
+          properties:
+            accessToken:
+              type: string
+            expiresIn:
+              type: integer
+            operator:
+              $ref: '#/components/schemas/Operator'
+      required:
+        - data
+    Operator:
+      title: Operator
+      x-tags:
+        - オペレータ
+      description: ''
+      allOf:
+        - $ref: '../shared.yaml#/components/schemas/ID'
+        - $ref: '#/components/schemas/OperatorImmutable'
+        - $ref: '#/components/schemas/OperatorMutable'
+      required:
+        - id
+        - name
+        - email
+        - displayName
+        - locked
+        - canOperatorRead
+        - canOperatorExport
+        - canOperatorUpdate
+        - canOperatorDelete
+    OperatorImmutable:
+      title: OperatorImmutable
+      type: object
+      properties:
+        operatorSalons:
+          type: array
+          items:
+            type: object
+            properties:
+              operatorId:
+                type: integer
+              salonId:
+                type: integer
+    OperatorMutable:
+      title: OperatorMutable
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        displayName:
+          type: string
+        locked:
+          type: boolean
+        canOperatorRead:
+          type: boolean
+        canOperatorExport:
+          type: boolean
+        canOperatorUpdate:
+          type: boolean
+        canOperatorDelete:
+          type: boolean
+    OperatorCreateRequest:
+      title: OperatorCreateRequest
+      allOf:
+        - $ref: '#/components/schemas/OperatorMutable'
+        - $ref: '#/components/schemas/OperatorCreatePassword'
+    OperatorCreatePassword:
+      title: OperatorCreatePassword
+      type: object
+      description: 登録パスワード
+      properties:
+        password:
+          type: string
+    OperatorUpdateRequest:
+      title: OperatorUpdateRequest
+      allOf:
+        - $ref: '../shared.yaml#/components/schemas/ID'
+        - $ref: '#/components/schemas/OperatorMutable'
+    MeGetResponse:
+      $ref: '#/components/schemas/Operator'
+    OperatorIndexResponse:
+      title: OperatorIndexResponse
+      type: object
+      x-tags:
+        - オペレータ
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperatorSummary'
+        meta:
+          $ref: '../shared.yaml#/components/schemas/Meta'
+      required:
+        - data
+        - meta
+    OperatorSummary:
+      title: OperatorSummary
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        displayName:
+          type: string
+        locked:
+          type: boolean
+      required:
+        - id
+        - name
+        - email
+        - displayName
+        - locked
+    OperatorResponse:
+      title: OperatorResponse
+      properties:
+        data:
+          $ref: '#/components/schemas/Operator'
+      required:
+        - data
+    MeUpdateRequest:
+      title: MePutRequest
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        displayName:
+          type: string
+        email:
+          type: string
+        newPassword:
+          type: string
+        password:
+          type: string
+      required:
+        - id
+        - name
+        - email
+    MeUpdateResponse:
+      title: MeUpdateResponse
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            email:
+              type: string
+            displayName:
+              type: string
+            name:
+              type: string
+      required:
+        - data
+    OperatorResetPasswordResponse:
+      title: OperatorResetPasswordResponse
+      type: object
+      properties:
+        id:
+          type: number
+        newPassword:
+          type: string
+      required:
+        - id
+        - newPassword
+    OperatorIndexAllResponse:
+      title: OperatorIndexAllResponse
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperatorSummary'
+      type: object
+      required:
+        - data
+

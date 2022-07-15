@@ -1,0 +1,14 @@
+# /operators/all
+get:
+  summary: オペレータ全件取得
+  tags: []
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/operator.yaml#/components/schemas/OperatorIndexAllResponse
+  operationId: get-operators-all
+  security:
+    - bearerAuth: []

@@ -1,0 +1,21 @@
+# /masters/cities/{prefectureId}
+get:
+  summary: 市区町村一覧取得
+  tags: []
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/masters.yaml#/components/schemas/CitiesResponse
+  operationId: get-cities
+  security:
+    - bearerAuth: []
+parameters:
+  - schema:
+      type: integer
+    name: prefectureId
+    in: path
+    required: true
+    description: 都道府県ID

@@ -1,0 +1,55 @@
+openapi: 3.0.0
+info:
+  title: masters.yaml
+  version: '1.0'
+  description: マスタ関連定義
+components:
+  schemas:
+    MastersResponse:
+      title: MastersResponse
+      type: object
+      properties:
+        prefectures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prefecture'
+        cities:
+          type: array
+          items:
+            $ref: '#/components/schemas/City'
+      required:
+        - prefectures
+        - cities
+    Prefecture:
+      title: Prefecture
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      description: 都道府県
+    City:
+      title: City
+      type: object
+      description: 市区町村
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          description: 市区町村名
+        prefectureId:
+          type: integer
+          description: 所属する都道府県ID
+    CitiesResponse:
+      title: CitiesResponse
+      type: object
+      description: 市区町村一覧
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/City'
+      required:
+        - data

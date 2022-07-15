@@ -1,0 +1,32 @@
+{
+  "name": "shoken-document",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "",
+  "scripts": {
+    "doc:owner": "npx redoc-cli bundle shoken-owner-app.v1.yaml -o ./doc-owner-app-api.html",
+    "doc:resident": "npx redoc-cli bundle shoken-resident-app.v1.yaml -o ./doc-resident-app-api.html",
+    "gen:management:ts": "node open-api-generator.js",
+    "merge:yaml": "node open-api-generator-merge.js",
+    "mock:up": "npm run merge:yaml && docker-compose up -d",
+    "mock:down": "docker-compose down",
+    "mock:restart": "npm run mock:down && npm run mock:up"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@openapitools/openapi-generator-cli": "^1.0.10-4.2.3",
+    "dotenv": "^8.2.0",
+    "prettier": "^1.19.1",
+    "redoc-cli": "^0.9.5",
+    "shelljs": "^0.8.3",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}

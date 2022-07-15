@@ -1,0 +1,77 @@
+# /operators
+get:
+  summary: オペレータ一覧取得
+  tags: []
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/operator.yaml#/components/schemas/OperatorIndexResponse
+  operationId: get-operators
+  security:
+    - bearerAuth: []
+  description: ''
+  parameters:
+    - $ref: ../shared.yaml#/components/parameters/PageNumber
+    - $ref: ../shared.yaml#/components/parameters/PageOffset
+    - schema:
+        type: integer
+      in: query
+      name: id
+      description: ID
+    - schema:
+        type: string
+      in: query
+      name: name
+      description: 名前
+    - schema:
+        type: string
+      in: query
+      name: displayName
+      description: チャット表示名
+    - schema:
+        type: string
+      in: query
+      name: email
+      description: メールアドレス
+    - schema:
+        type: string
+      in: query
+      name: createdAt
+      description: 登録日
+post:
+  summary: オペレータ新規作成
+  operationId: create-operator
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../models/operator.yaml#/components/schemas/OperatorResponse
+    '422':
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '../shared.yaml#/components/schemas/ErrorResponse'
+          examples:
+            example-1:
+              value:
+                statusCode: 422
+                errorMessage: バリデーションエラー
+                errorDetails:
+                  name:
+                    - 名前は必ず指定してください。
+                  email:
+                    - emailは必ず指定してください。
+                errorCode: 0
+  security:
+    - bearerAuth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../models/operator.yaml#/components/schemas/OperatorCreateRequest
