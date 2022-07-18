@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Family;
+use App\Models\Position;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,12 +19,12 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $gender = $this->faker->randomElement(['man','woman','other']);
-        $gender == 'man' ? $name = $this->faker->firstNameMale() : $name = $this->faker->firstNameFemale();
+        $positionId = $this->faker->numberBetween(1, 10);
+        $positionId == 1 || 3 || 5 || 7 || 9  ? $name = $this->faker->firstNameMale() : $name = $this->faker->firstNameFemale();
         return [
             'family_id' => Family::factory(),
             'name' => $name,
-            'gender' => $gender,
+            'position_id' => $positionId,
             'birthday' => $this->faker->date(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),

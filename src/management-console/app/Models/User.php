@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'gender',
+        'position_id',
         'birthday',
         'password',
     ];
@@ -47,6 +47,11 @@ class User extends Authenticatable
     public function family()
     {
         return $this->belongsTo('App\Models\Family', 'family_id', 'id');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo('App\Models\Position', 'position_id', 'id');
     }
 
     public function rewards()

@@ -18,7 +18,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('family_id')->nullable()->index('fk_user_family1_idx')->comment('家族ID');
             $table->foreign('family_id', 'fk_user_family1')->references('id')->on('families')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->string('name')->comment('名前');
-            $table->enum('gender', array('man','woman','other'))->comment('性別');
+            $table->unsignedInteger('position_id')->nullable()->index('fk_user_position1_idx')->comment('立場ID');
+            $table->foreign('position_id', 'fk_user_position1')->references('id')->on('positions')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->date('birthday')->comment('生年月日');
             $table->string('email')->unique()->comment('メールアドレス');
             $table->timestamp('email_verified_at')->nullable()->comment('メールアドレス確認日時');

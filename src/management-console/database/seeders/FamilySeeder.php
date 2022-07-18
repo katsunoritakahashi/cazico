@@ -23,7 +23,7 @@ class FamilySeeder extends Seeder
         User::create([
             'family_id' => $takahashiFamily->id,
             'name' => '克典',
-            'gender' => 'man',
+            'position_id' => 1,
             'birthday' => '1994-09-16',
             'email' => 'katsutennis.916@gmail.com',
             'email_verified_at' => now(),
@@ -33,7 +33,7 @@ class FamilySeeder extends Seeder
         User::create([
             'family_id' => $takahashiFamily->id,
             'name' => '絵里香',
-            'gender' => 'woman',
+            'position_id' => 2,
             'birthday' => '1992-08-25',
             'email' => 'erika@gmail.com',
             'email_verified_at' => now(),
