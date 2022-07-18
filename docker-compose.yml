@@ -22,7 +22,9 @@ services:
       - redis
       - mail
     volumes:
-      - ./src/management-console:/var/www/html/management-console
+      - ./src/management-console/:/var/www/html/management-console
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
 
   management-web:
     depends_on:
