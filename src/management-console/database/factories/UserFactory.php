@@ -16,7 +16,7 @@ class UserFactory extends Factory
     public function definition()
     {
         $positionId = $this->faker->numberBetween(1, 10);
-        $positionId == 1 || 3 || 5 || 7 || 9  ? $name = $this->faker->firstNameMale() : $name = $this->faker->firstNameFemale();
+        $positionId == 1 ? $name = $this->faker->firstNameMale() : ($positionId == 3 ? $name = $this->faker->firstNameMale() : ($positionId == 5 ? $name = $this->faker->firstNameMale() : ($positionId == 7 ? $name = $this->faker->firstNameMale() : ($positionId == 9 ? $name = $this->faker->firstNameMale() : $name = $this->faker->firstNameFemale()))));
         return [
             'family_id' => Family::factory(),
             'name' => $name,

@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 
 use App\Models\PointHistory;
+use App\Models\Position;
 use Carbon\Carbon;
 
 class FamilyIndexResource extends BaseResource
@@ -17,15 +18,23 @@ class FamilyIndexResource extends BaseResource
     public function toArray($request)
     {
         $userIds = $this->users()->pluck('users.id')->toArray();
+        $positionIds = $this->users()->pluck('users.position_id')->toArray();
 
-        //保有ポイント
+        // ポジション
+        $positionArray = array();
+        foreach ($positionIds as $positionId) {
+            $positionName = Position::where('id',$positionId)->first()->name;
+            array_push($positionArray, $positionName);
+        }
+
+        // 保有ポイント
         $ownedPointArray = array();
         foreach ($userIds as $userId) {
             $ownedPoints = PointHistory::where('user_id',$userId)->sum('point');
             array_push($ownedPointArray, $ownedPoints);
         }
 
-        //当日獲得ポイント
+        // 当日獲得ポイント
         $dailyGetPointArray = array();
         foreach ($userIds as $userId) {
             $dailyGetPoints = PointHistory::where('user_id',$userId)
@@ -35,7 +44,7 @@ class FamilyIndexResource extends BaseResource
             array_push($dailyGetPointArray, $dailyGetPoints);
         }
 
-        //週間獲得ポイント
+        // 週間獲得ポイント
         $weeklyGetPointArray = array();
         foreach ($userIds as $userId) {
             $weeklyGetPoints = PointHistory::where('user_id',$userId)
@@ -45,7 +54,7 @@ class FamilyIndexResource extends BaseResource
             array_push($weeklyGetPointArray, $weeklyGetPoints);
         }
 
-        //月間獲得ポイント
+        // 月間獲得ポイント
         $monthlyGetPointArray = array();
         foreach ($userIds as $userId) {
             $monthlyGetPoints = PointHistory::where('user_id',$userId)
@@ -55,7 +64,7 @@ class FamilyIndexResource extends BaseResource
             array_push($monthlyGetPointArray, $monthlyGetPoints);
         }
 
-        //累計獲得ポイント
+        // 累計獲得ポイント
         $totalGetPointArray = array();
         foreach ($userIds as $userId) {
             $totalGetPoints = PointHistory::where('user_id',$userId)
@@ -64,7 +73,7 @@ class FamilyIndexResource extends BaseResource
             array_push($totalGetPointArray, $totalGetPoints);
         }
 
-        //累計消費ポイント
+        // 累計消費ポイント
         $totalUsePointArray = array();
         foreach ($userIds as $userId) {
             $totalUsePoints = PointHistory::where('user_id',$userId)
@@ -78,7 +87,7 @@ class FamilyIndexResource extends BaseResource
             'name' => $this->name,
             'code' => $this->code,
             'userName' => $this->users()->pluck('users.name'),
-            'userGender' => $this->users()->pluck('users.gender'),
+            'userPosition' => $positionArray,
             'userBirthday' => $this->users()->pluck('users.birthday'),
             'userEmail' => $this->users()->pluck('users.email'),
             'ownedPoints' => $ownedPointArray,
